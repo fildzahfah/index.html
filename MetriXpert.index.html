@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Form Pengukuran Seragam Celana SD/SMP/SMA</title>
+  <style>
+    body{font-family:Arial, sans-serif;background:#f8fafc;padding:20px;}
+    .container{max-width:600px;margin:auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.1);}
+    label{display:block;margin-top:12px;font-weight:600}
+    input, select{width:100%;padding:8px;margin-top:6px;border:1px solid #ccc;border-radius:6px;}
+    button{margin-top:16px;background:#0ea5a4;color:#fff;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;}
+    button:hover{background:#0d9488;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pengukuran Seragam Celana</h2>
+    <p>Isi data berikut (satuan cm). Setelah kirim, hasilnya langsung dikirim ke WhatsApp.</p>
+
+    <form id="measureForm" onsubmit="return sendToWhatsApp(event)">
+      <label>Jenis Sekolah</label>
+      <select id="level" required>
+        <option value="">-- Pilih --</option>
+        <option value="SD">SD</option>
+        <option value="SMP">SMP</option>
+        <option value="SMA">SMA</option>
+      </select>
+
+      <label>Tinggi Badan (cm)</label>
+      <input type="number" id="height" required>
+
+      <label>Umur (tahun)</label>
+      <input type="number" id="age" required>
+
+      <label>Lingkar Pinggang (cm)</label>
+      <input type="number" id="waist" required>
+
+      <label>Lingkar Pinggul (cm)</label>
+      <input type="number" id="hip" required>
+
+      <label>Panjang Inseam (cm)</label>
+      <input type="number" id="inseam" required>
+
+      <label>Lebar Paha (cm)</label>
+      <input type="number" id="thigh" required>
+
+      <label>Preferensi Fit</label>
+      <select id="fit" required>
+        <option value="Regular">Regular</option>
+        <option value="Slim">Slim</option>
+        <option value="Loose">Loose</option>
+      </select>
+
+      <button type="submit">Kirim via WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    function sendToWhatsApp(e){
+      e.preventDefault();
+      const phone = "62881026375821"; // ganti dengan nomor WA tujuan (format internasional tanpa +)
+      const level = document.getElementById("level").value;
+      const height = document.getElementById("height").value;
+      const age = document.getElementById("age").value;
+      const waist = document.getElementById("waist").value;
+      const hip = document.getElementById("hip").value;
+      const inseam = document.getElementById("inseam").value;
+      const thigh = document.getElementById("thigh").value;
+      const fit = document.getElementById("fit").value;
+
+      const message = `Halo, saya ingin pesan seragam celana:\n\n` +
+        `👕 Jenis Sekolah: ${level}\n` +
+        `📏 Tinggi: ${height} cm\n` +
+        `🎂 Umur: ${age} tahun\n` +
+        `🧍‍♂️ Pinggang: ${waist} cm\n` +
+        `🍑 Pinggul: ${hip} cm\n` +
+        `📐 Inseam: ${inseam} cm\n` +
+        `🦵 Paha: ${thigh} cm\n` +
+        `👖 Fit: ${fit}`;
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
